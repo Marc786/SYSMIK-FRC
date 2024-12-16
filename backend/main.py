@@ -1,2 +1,2 @@
 import numpy
-import apriltag
+import robotpy_apriltag

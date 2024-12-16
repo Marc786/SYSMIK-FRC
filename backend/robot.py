@@ -2,18 +2,21 @@
 """
     This is a good foundation to build your robot code on
 """
-
+import os
 import wpilib
 import wpilib.drive
-from rev import CANSparkLowLevel
-from rev import CANSparkMax
 from swerve import ride
 from swerve import path
 from swerve import auto_drive
 import navx
 import phoenix5._ctre.sensors as ctre # type: ignore
 import math
-
+if os.name == 'posix':
+    from rev._rev import CANSparkMax
+    from rev._rev import CANSparkLowLevel
+else:
+    from rev import CANSparkMax
+    from rev import CANSparkLowLevel
 
 class MyRobot(wpilib.TimedRobot):
 
