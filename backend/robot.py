@@ -95,12 +95,18 @@ class MyRobot(wpilib.TimedRobot):
         x=self.controller.getLeftX()/math.sqrt(2)*1.5
         z=self.controller.getRawAxis(2)/2/2
         ride(self,x,y,z)
-        
 
-if __name__ == "__main__":
+
+def robotAndApriltag():
     # start the apriltag detection on a separate thread to be able to run the robot code at the same time
     apriltag_thread = threading.Thread(target=apriltag_detection)
     apriltag_thread.start()
     
     wpilib.run(MyRobot)
+
+def robotOnly():
+    wpilib.run(MyRobot)
+
+if __name__ == "__main__":
+    robotOnly()
     
