@@ -2,9 +2,11 @@
 """
     This is a good foundation to build your robot code on
 """
+import threading
 import os
 import wpilib
 import wpilib.drive
+from apriltag_detection import apriltag_detection
 from swerve import ride
 from swerve import path
 from swerve import auto_drive
@@ -96,4 +98,9 @@ class MyRobot(wpilib.TimedRobot):
         
 
 if __name__ == "__main__":
+    # start the apriltag detection on a separate thread to be able to run the robot code at the same time
+    apriltag_thread = threading.Thread(target=apriltag_detection)
+    apriltag_thread.start()
+    
     wpilib.run(MyRobot)
+    
