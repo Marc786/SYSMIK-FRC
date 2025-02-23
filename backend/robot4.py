@@ -23,6 +23,7 @@ import phoenix6
 
 class MyRobot(wpilib.TimedRobot):
 
+<<<<<<< HEAD:backend/robot.py
     def robotInit(self):
         """
         This function is called upon program startup and
@@ -102,6 +103,12 @@ class MyRobot(wpilib.TimedRobot):
         self.etape=0
         
 
+=======
+    def robotInit(self):        
+        self.camera_list = []
+        wpilib.CameraServer.launch("vision.py:main")
+    
+>>>>>>> a7e46574f87128be96138be7d50fb9a4e92d33a0:backend/robot4.py
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
         self.navx_device.resetDisplacement()
