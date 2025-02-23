@@ -18,8 +18,8 @@ def pos(robot):
     robot.py+=v1*math.sin(a1)+v2*math.sin(a2)+v3*math.sin(a3)-v4*math.sin(a4)
 
 def PID_motor(mot:SparkMax,enc:SparkRelativeEncoder,obj):
-    p=(obj-enc.getVelocity()/10000)*2
-    mot.set(p*abs(p)+enc.getVelocity()/10000)
+    p=(obj-enc.getVelocity()/9000)
+    mot.set(p*abs(p)*abs(p)*abs(p)+enc.getVelocity()/9000)
 
 def PID_angle(mot:SparkMax,enc:CANcoder,obj):
     s=1
@@ -37,7 +37,7 @@ def PID_angle(mot:SparkMax,enc:CANcoder,obj):
             p+=180
             s=-1
     com=-p*0.006-0.0000*enc.get_velocity().value_as_double
-    if abs(com)>0.001:
+    if abs(com)>0.003:
         mot.set(com)
     else:
         mot.set(0)
@@ -119,21 +119,21 @@ def auto_drive(robot):
     px=robot.px
     a=robot.navx_device.getYaw()
     if obj!=[]:
-        y=-(obj[0][0]-px)/2
-        x=-(obj[0][1]-py)/2
+        y=-(obj[0][0]-px)*2
+        x=-(obj[0][1]-py)*2
         if obj[0][2]-a>=180:
-            z=(-360+(obj[0][2]-a))/360*5
+            z=(-360+(obj[0][2]-a))/360*8
         elif obj[0][2]-a<=-180:
-            z=(360+(obj[0][2]-a))/360*5
+            z=(360+(obj[0][2]-a))/360*8
         else:
-            z=(obj[0][2]-a)/360*5
-        val=0.25
+            z=(obj[0][2]-a)/360*8
+        val=0.5
         if x>val: x=val
         if y>val: y=val
-        if z>val/3: z=val/3
+        if z>val*0.6: z=val*0.6
         if -x>val: x=-val
         if -y>val: y=-val
-        if -z>val/3: z=-val/3
+        if -z>val*0.6: z=-val*0.6
         ride(robot,x,y,z)
         if abs(obj[0][0]-px)<obj[0][3] and abs(obj[0][1]-py)<obj[0][3] and abs(obj[0][2]-a)/36<obj[0][3] and len(obj)>1:
             obj.pop(0)
@@ -143,6 +143,6 @@ def auto_drive(robot):
 
 def path():
     # return [[0,1,0,0.1],[1,1,0,0.1],[1,0,0,0.1],[0,0,0,0.1]]
-    return [[4,0,0,1],[4,-4,90,1],[0,-4,180,1],[0,0,-90,1],[0,0,0,0.1]]
+    return [[-5,0,0,0.1],[-5,0,45,0.1],[-8,3,45,0.1],[-5,0,45,0.1],[-5,0,0,0.1],[0,0,0,0.1],[0,0,0,0.1]]
 
 

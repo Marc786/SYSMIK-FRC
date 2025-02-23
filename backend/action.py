@@ -15,12 +15,14 @@ def deposer(robot):
 
 def elevateur(robot):
     retenue=0.2
-    if robot.level==3:
+    if robot.level==4:
         robot.motor_elevateur.set(retenue+(robot.encodeur_elevateur.get()+11300)/1000)
-    elif robot.level==2:
+    elif robot.level==3:
         robot.motor_elevateur.set(retenue+(robot.encodeur_elevateur.get()+6500)/1000)
-    elif robot.level==1:
+    elif robot.level==2:
         robot.motor_elevateur.set(retenue+(robot.encodeur_elevateur.get()+3000)/1000)
+    elif robot.level==1:
+        robot.motor_elevateur.set(retenue+(robot.encodeur_elevateur.get()+1000)/1000)
     else:
         robot.motor_elevateur.set((robot.encodeur_elevateur.get()+000)/3000)
 
