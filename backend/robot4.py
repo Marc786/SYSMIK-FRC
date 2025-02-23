@@ -4,7 +4,9 @@ import wpilib.cameraserver
 class MyRobot(wpilib.TimedRobot):
 
     def robotInit(self):        
+        self.camera_list = []
         wpilib.CameraServer.launch("vision.py:main")
+    
     def autonomousInit(self):
         pass
 
